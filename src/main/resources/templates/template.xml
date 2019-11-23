@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+template标签：
+   必填字段：
+      name:模板名称，下载时作为文件名
+      type:excel文件类型，xls或xlsx
+      path：模板生成路径
+   选填字段：
+      count：允许最大条数 默认1000
+      height：模板标题行高度 默认20
+      font：标题字体  默认宋体
+      fontSize：标题字体大小 默认16
+      fontColor:字体颜色 默认黑色  参考HSSFColor类
+      color：背景颜色 参考IndexedColors类
+      pattern：背景填充方式 参考CellStyle类  默认0
+cell标签：
+   必填字段：
+      name：封装类中对应的属性名，method为空时，用于生成get方法，recordNum作为行号内部已使用
+      value：标题名
+   选填字段：
+      width：列宽 默认6000
+      method:获取封装类中属性的方法
+      def:默认值
+      common:是否为公共值
+      group:是否根据该字段分组
+注意事项：
+      添加模板后，在TemplateConstant中添加相应名称字段，方便使用时调用
+-->
+<templates>
+    <template name="opLogExport" type="xlsx" path="/template/templateOpLog.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10">
+        <row>
+            <cell name="userName" value="operation.user.name" width="6000"/>
+            <cell name="type" value="operation.type" width="6000"/>
+            <cell name="content" value="operation.content" width="6000"/>
+            <cell name="module" value="operation.module" width="6000"/>
+            <cell name="subModule" value="operation.subModule" width="6000"/>
+            <cell name="time" value="operation.time" width="6000"/>
+        </row>
+    </template>
+    <template name="deviceImport" type="xlsx" path="/template/templateDeviceImport.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10">
+        <row>
+            <cell name="groupName" value="device.import.groupName" width="5000"/>
+            <cell name="code" value="device.import.code" width="5000"/>
+            <cell name="name" value="device.import.name" width="5000"/>
+            <cell name="type" value="device.import.type" width="5000"/>
+            <cell name="validate" value="device.import.validate" width="6000"/>
+            <!--<cell name="netId" value="device.import.net.name" width="13000"/>-->
+        </row>
+    </template>
+    <template name="deviceExport" type="xlsx" path="/template/templateDeviceExport.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10" updateStatus="true">
+        <row>
+            <cell name="groupPath" value="device.groupName" width="6000" groupPath="true" method="getGroupId"/>
+            <cell name="name" value="device.name" width="6000"/>
+            <cell name="deviceTypeName" value="device.deviceType" width="6000"/>
+            <cell name="code" value="device.code" width="6000"/>
+            <cell name="digitalCount" value="device.digitalCount" width="6000" def="0"/>
+            <cell name="netName" value="device.net.name" width="6000"/>
+            <cell name="onlineState" value="resource.state" width="6000"/>
+            <!--<cell name="protocolType" value="device.protocolType" width="6000" def="未知"/>
+            <cell name="analogCount" value="device.analogCount" width="6000" def="0"/>-->
+            <!--<cell name="zeroCount" value="device.zeroCount" width="6000" def="0"/>
+            <cell name="alarmInCount" value="device.alarmInCount" width="6000" def="0"/>
+            <cell name="alarmCount" value="device.alarmCount" width="6000" def="0"/>
+            <cell name="talkCount" value="device.talkCount" width="6000" def="0"/>-->
+        </row>
+    </template>
+    <template name="cameraImport" type="xlsx" path="/template/templateCameraImport.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10">
+        <row>
+            <cell name="indexCode" value="camera.indexCode" width="5000"/>
+            <cell name="name" value="camera.name" width="5000"/>
+            <cell name="assignState" value="camera.assignFlag" width="5000"/>
+        </row>
+    </template>
+    <template name="cameraExport" type="xlsx" path="/template/templateCameraExport.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10" updateStatus="true">
+        <row>
+            <cell name="groupPath" value="device.groupName" width="6000" groupPath="true" method="getGroupId"/>
+            <cell name="indexCode" value="camera.indexCode" width="6000"/>
+            <cell name="name" value="camera.name" width="6000"/>
+            <cell name="deviceName" value="camera.deviceName" width="6000"/>
+            <cell name="channelNo" value="camera.channelNo" width="6000"/>
+            <cell name="onlineState" value="resource.state" width="6000"/>
+            <cell name="assignState" value="camera.assignFlag" width="6000"/>
+        </row>
+    </template>
+    <template name="deviceStatusExport" type="xlsx" path="/template/templateDeviceStatus.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10">
+        <row>
+            <cell name="status" value="resource.state" width="6000"/>
+            <cell name="formattedChangeTime" value="resource.formattedChangeTime" width="6000"/>
+        </row>
+    </template>
+    <template name="alarmExport" type="xlsx" path="/template/templateAlarmExport.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10" updateStatus="true">
+        <row>
+            <cell name="deviceIndexCode" value="alarm.device.indexCode" width="6000"/>
+            <cell name="deviceName" value="alarm.device.name" width="6000"/>
+            <cell name="cameraName" value="alarm.camera.name" width="6000"/>
+            <cell name="typeName" value="alarm.typeName" width="6000"/>
+            <cell name="startTime" value="alarm.startTime" width="6000" method="getStartTimeStr"/>
+        </row>
+    </template>
+    <template name="cameraOpLogExport" type="xlsx" path="/template/templateCameraOpLogExport.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10" updateStatus="true">
+        <row>
+            <cell name="cameraName" value="camera.name" width="6000"/>
+            <!--<cell name="cameraIndexCode" value="camera.indexCode" width="6000"/>-->
+            <cell name="typeDesc" value="operation.type" width="6000"/>
+            <cell name="userName" value="operation.user.name" width="6000"/>
+            <cell name="logUserType" value="operation.user.type" width="6000"/>
+            <cell name="timeStr" value="operation.time" width="6000"/>
+            <cell name="duration" value="camera.log.duration" width="6000" method="getDurationStr"/>
+        </row>
+    </template>
+    <template name="fluxExport" type="xlsx" path="/template/templateFluxExport.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10" updateStatus="true">
+        <row>
+            <cell name="groupName" value="flux.group.name" width="6000"/>
+            <cell name="timeFrame" value="flux.time.frame" width="12000" common="true"/>
+            <cell name="groupFlux" value="flux.all.amount" width="6000"/>
+            <!--<cell name="deviceName" value="flux.device.name" width="6000"/>
+            <cell name="indexCode" value="flux.device.indexCode" width="6000"/>
+            <cell name="deviceFlux" value="flux.per.amount" width="6000"/>-->
+        </row>
+    </template>
+    <template name="deviceOnOffExport" type="xlsx" path="/template/templateDeviceOnOff.xlsx"
+              font="Arial" fontSize="10" updateStatus="true">
+        <!--<row rowNum="0">-->
+        <row >
+            <cell name="deviceName" value="onOffLine.device.name" />
+            <cell name="deviceCode" value="onOffLine.device.code" />
+            <cell name="groupPath" value="onOffLine.group.path" groupPath="true" method="getGroupId" />
+            <cell name="onOffTimes" value="onOffLine.times" />
+            <cell name="onOffNearTime" value="onOffLine.near.time" valueType="Date"/>
+           <!-- <cell name="moreInfo" value="onOffLine.more.info" size="2"/>-->
+        </row>
+        <!--<row rowNum="1">
+            <cell name="deviceName" value="onOffLine.device.name" endRow="true"/>
+            <cell name="deviceCode" value="onOffLine.device.code" group="true" endRow="true"/>
+            <cell name="groupPath" value="onOffLine.group.path" groupPath="true" method="getGroupId" endRow="true"/>
+            <cell name="onOffTimes" value="onOffLine.times" endRow="true"/>
+            <cell name="onOffNearTime" value="onOffLine.near.time" endRow="true" valueType="Date"/>
+            <cell name="onOffStatus" value="onOffLine.status"/>
+            <cell name="onOffTime" value="onOffLine.time" valueType="Date"/>
+        </row>-->
+    </template>
+    <template name="importResult" type="xlsx" path="/template/importResult.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10">
+        <row>
+            <cell name="lineno" value="import.detail.lineno" width="6000"/>
+            <cell name="result" value="import.detail.result" width="12000"/>
+        </row>
+    </template>
+    <template name="deviceImportDelete" type="xlsx" path="/template/deviceImportDelete.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10">
+        <row>
+            <cell name="code" value="device.code" width="6000"/>
+        </row>
+    </template>
+    <template name="deviceImportConfig" type="xlsx" path="/template/deviceImportConfig.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10">
+        <row>
+            <cell name="code" value="device.code" width="6000"/>
+        </row>
+    </template>
+    <template name="deviceImportRestart" type="xlsx" path="/template/deviceImportRestart.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10">
+        <row>
+            <cell name="code" value="device.code" width="6000"/>
+        </row>
+    </template>
+    <template name="deviceImportUpdate" type="xlsx" path="/template/deviceImportUpdate.xlsx"
+              count="1000" height="500" font="Arial" fontSize="10">
+        <row>
+            <cell name="code" value="device.code" width="6000"/>
+        </row>
+    </template>
+
+</templates>
